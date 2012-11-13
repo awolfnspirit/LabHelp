@@ -55,7 +55,7 @@ public class RandomTileDeck //extends JFrame
 			deck.add(new WhiteDragonTile());
 			deck.add(new Bamboo1Tile());
 		}
-		deck.add(new FlowerTile("Chriysanthemum"));
+		deck.add(new FlowerTile("Chrysanthemum"));
 		deck.add(new FlowerTile("Orchid"));
 		deck.add(new FlowerTile("Plum"));
 		deck.add(new FlowerTile("Bamboo"));
@@ -425,7 +425,7 @@ public class RandomTileDeck //extends JFrame
 				case 95:
 					layer0[3][8] = deck.get(i);
 					break;
-				/*case 96:
+				case 96:
 					layer0[3][9] = deck.get(i);
 					break;
 				case 97:
@@ -475,8 +475,8 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 111:
 					layer0[5][1] = deck.get(i);
-					break;*/
-				/*case 112:
+					break;
+				case 112:
 					layer0[5][2] = deck.get(i);
 					break;
 				case 113:
@@ -577,7 +577,7 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 140:
 					layer0[7][11] = deck.get(i);
-					break;*/
+					break;
 				}
 			}
 		}
