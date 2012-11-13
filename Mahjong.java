@@ -21,8 +21,8 @@ public class Mahjong extends JFrame
 		
 		add(new MahjongBoard());
 		
-		setSize(500, 500);
-		
+		setSize(800, 800);
+		pack();
 		
 		
 		setVisible(true);
@@ -99,13 +99,10 @@ public class Mahjong extends JFrame
 		}
 		private void addComponent()
 		{
-			
-			
 			for(int row = 0; row < 8; row++)
 			{
 				for(int col = 0; col < 12; col++)
 				{
-					System.out.println("In addComponent row: " + row + " col: " + col);
 					
 					if(!(deckOTiles.layer0[row][col] == null))
 					{
