@@ -1,9 +1,11 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
 
 import javax.swing.*;
 
-public class Mahjong extends JFrame
+public class Mahjong extends JFrame implements MouseListener
 {
 	private GridBagLayout			layer0 = new GridBagLayout();
 	private GridBagLayout			layer1 = new GridBagLayout();
@@ -28,6 +30,27 @@ public class Mahjong extends JFrame
 		setVisible(true);
 	}
 	
+	public void mousePressed(MouseEvent e)	//one of five methods in MouseListener
+	{
+		/*Die	die = (Die)e.getSource();
+		
+		if (e.getButton() == MouseEvent.BUTTON3)
+		{
+			//die.setBackground(Color.RED);
+			//die.removeMouseListener(this);
+
+			//Use to remove tiles
+			remove(die);	// other side of add
+			revalidate();
+		}
+		else
+			die.roll();*/
+	}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	
 	public class MahjongBoard extends JPanel
 	{
 		
@@ -43,93 +66,75 @@ public class Mahjong extends JFrame
 			
 			deckOTiles = new RandomTileDeck();
 			
+			//setLayout(layer4);
+			
+			//addComponent(4);
+			
 			setLayout(layer0);
-			
-			addComponent();
-			
-			/*for(int i = 0; i < deckOTiles.deck.size(); i++)
-			{
-				System.out.println("before addComponent Call");
-				addComponent(deckOTiles.deck.get(i));
-			}*/
-			
-			/*Tile t;
-			t = new SeasonTile("Spring");
-			//t.setLocation(200, 100);
-			addComponent(t, 0, 0);
-			
-			t = new SeasonTile("Summer");
-			//t.setLocation(190, 110);
-			addComponent(t, 0, 1);
-			
-			t = new SeasonTile("Fall");
-			//t.setLocation(190, 110);
-			addComponent(t, 1, 0);*/
+			addComponent(4);
+			addComponent(0);
 			
 			
 			///-----/GridBag Testing
-			
-			//------Original Test
-			
-			/*
-			setLayout(null); //discarding the layout mananger, because we will make our own
-			//NOW in Tile must setSize instead of setPreferredSize, after testing???
-			
-			Tile t;
-			
-			//off setting tile so they stack nicely
-			t = new SeasonTile("Spring");	//going to be on top
-			t.setLocation(200, 100);  //this is because there is no layout manager
-			add(t);
-			
-			t = new SeasonTile("Summer");	//next z order down
-			t.setLocation(190, 110);  //this is because there is no layout manager
-			add(t);
-			
-			t = new SeasonTile("Fall");	//next z order down
-			t.setLocation(180, 120);  //this is because there is no layout manager
-			add(t);
-			
-			t = new SeasonTile("Winter");	//next z order down
-			t.setLocation(170, 130);  //this is because there is no layout manager
-			add(t);
-			*/
-			//------/Original Test
 	
 		}
-		private void addComponent()
+		private void addComponent(int layer)
 		{
-			for(int row = 0; row < 8; row++)
+			switch(layer)
 			{
-				for(int col = 0; col < 12; col++)
-				{
-					
-					if(!(deckOTiles.layer0[row][col] == null))
+			case 4:
+			{
+				int row = 0;
+				int col = 0;
+
+					if(!(deckOTiles.layer4[row][col] == null))
 					{
+						constraints.insets = new Insets(-6, -6, -6, -6);
+						
 						constraints.gridx = col;
 						constraints.gridy = row;
 						constraints.gridheight = 1;
 						constraints.gridwidth = 1;
-						layer0.setConstraints(deckOTiles.layer0[row][col], constraints);
-						add(deckOTiles.layer0[row][col]);
+						layer0.setConstraints(deckOTiles.layer4[row][col], constraints);
 						
+						add(deckOTiles.layer4[row][col]);
+						
+						//setComponentZOrder(deckOTiles.layer4[row][col], 0);
+						
+						System.out.println(deckOTiles.layer4[row][col].getParent().getComponentZOrder(deckOTiles.layer4[row][col]));
 					}
 					
-					
-					
-					/*constraints.gridx = x;
-					constraints.gridy = y;
-					constraints.gridheight = 1;
-					constraints.gridwidth = 1;
-					layer0.setConstraints(c, constraints);
-					add(c);*/
+				break;
+			}
+			case 0:
+				for(int row = 7; row >= 0; row--)
+				{
+					for(int col = 0; col < 12; col++)
+					{
+						
+						if(!(deckOTiles.layer0[row][col] == null))
+						{
+							constraints.insets = new Insets(-6, -6, -6, -6);
+							
+							constraints.gridx = col;
+							constraints.gridy = row;
+							constraints.gridheight = 1;
+							constraints.gridwidth = 1;
+							layer0.setConstraints(deckOTiles.layer0[row][col], constraints);
+							
+							add(deckOTiles.layer0[row][col]);
+							
+							System.out.println(deckOTiles.layer0[row][col].getParent().getComponentZOrder(deckOTiles.layer0[row][col]));
+						}
+					}
 				}
+				break;
 			}
 		}
 		
 		private void addComponent(Component c, int row, int col)
 		{			
-			constraints.insets = new Insets(-4, -4, -4, -4);
+			constraints.insets = new Insets(-6, -6, -6, -6);
 		
 			constraints.gridx = col;
 			constraints.gridy = row;

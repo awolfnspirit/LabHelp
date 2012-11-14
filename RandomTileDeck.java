@@ -1,7 +1,9 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -12,7 +14,7 @@ import javax.swing.JPanel;
 public class RandomTileDeck //extends JFrame
 {
 	ArrayList<Tile> deck = new ArrayList<Tile>();
-	int gameNumber;
+	long gameNumber;
 	Tile[] [] layer4 = new Tile[1][1];
 	Tile[] [] layer3 = new Tile[2][2];
 	Tile[] [] layer2 = new Tile[4][4];
@@ -23,7 +25,7 @@ public class RandomTileDeck //extends JFrame
 	{
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setTitle("Mah Jong Tiles Demo");
-		
+		gameNumber = new Date().getTime();
 		Random rand = new Random(gameNumber);
 		
 		for(int i = 0; i < 4; i++)
@@ -65,8 +67,6 @@ public class RandomTileDeck //extends JFrame
 		deck.add(new SeasonTile("Winter"));
 		
 		Collections.shuffle(deck, rand);
-		
-		//System.out.println("Deck size is: " + deck.size());
 		
 		setPosition();
 		
@@ -325,13 +325,13 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 68:
 					layer0[0][11] = deck.get(i);
-//					break;
+					break;
 //				case 33:
-					layer0[1][0] = new Tile();
+//					layer0[1][0] = new Tile();
 //					break;
 //				case 34:
-					layer0[1][1] = new Tile();
-					break;
+//					layer0[1][1] = new Tile();
+//					break;
 				case 69:
 					layer0[1][2] = deck.get(i);
 					break;
@@ -355,16 +355,16 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 76:
 					layer0[1][9] = deck.get(i);
-//					break;
+					break;
 //				case 43:
-					layer0[1][10] = new Tile();
+//					layer0[1][10] = new Tile();
 //					break;
 //				case 44:
-					layer0[1][11] = new Tile();
+//					layer0[1][11] = new Tile();
 //					break;
 //				case 45:
-					layer0[2][0] = new Tile();
-					break;
+//					layer0[2][0] = new Tile();
+//					break;
 				case 77:
 					layer0[2][1] = deck.get(i);
 					break;
@@ -394,10 +394,10 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 86:
 					layer0[2][10] = deck.get(i);
-//					break;
-//				case 56:
-					layer0[2][11] = new Tile();
 					break;
+//				case 56:
+//					layer0[2][11] = new Tile();
+//					break;
 				case 87:
 					layer0[3][0] = deck.get(i);
 					break;
@@ -469,10 +469,10 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 110:
 					layer0[4][11] = deck.get(i);
-//					break;
-//				case 45:
-					layer0[5][0] = new Tile();
 					break;
+//				case 45:
+//					layer0[5][0] = new Tile();
+//					break;
 				case 111:
 					layer0[5][1] = deck.get(i);
 					break;
@@ -502,16 +502,16 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 120:
 					layer0[5][10] = deck.get(i);
-//					break;
+					break;
 //				case 56:
-					layer0[5][11] = new Tile();
+//					layer0[5][11] = new Tile();
 //					break;
 //				case 21:
-					layer0[6][0] = new Tile();
+//					layer0[6][0] = new Tile();
 //					break;
 //				case 22:
-					layer0[6][1] = new Tile();
-					break;
+//					layer0[6][1] = new Tile();
+//					break;
 				case 121:
 					layer0[6][2] = deck.get(i);
 					break;
@@ -535,13 +535,13 @@ public class RandomTileDeck //extends JFrame
 					break;
 				case 128:
 					layer0[6][9] = deck.get(i);
-//					break;
+					break;
 //				case 31:
-					layer0[6][10] = new Tile();
+//					layer0[6][10] = new Tile();
 //					break;
 //				case 32:
-					layer0[6][11] = new Tile();
-					break;
+//					layer0[6][11] = new Tile();
+//					break;
 				case 129:
 					layer0[7][0] = deck.get(i);
 					break;
