@@ -22,7 +22,7 @@ public class Tile extends JPanel
 	
 	public Tile()
 	{
-		setSize(85, 85);
+		setSize(86, 86);
 		setPreferredSize(SIZE);
 	}
 		
@@ -46,7 +46,13 @@ public class Tile extends JPanel
 	
 	public boolean matches(Tile other)
 	{
+		System.out.println("Entered matches in Tile.");
 		return getClass() == other.getClass();
+	}
+	
+	public void setZOrder()
+	{
+		zPos = getParent().getComponentZOrder(this);
 	}
 
 	public static void main(String[] args)
