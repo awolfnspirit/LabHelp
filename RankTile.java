@@ -13,10 +13,8 @@ public abstract class RankTile extends Tile
 		this.rank = rank;
 	}
 	
-	public boolean matches(Object other)
-	{		
-		System.out.println("Entered RankTile matches.");
-		
+	public boolean matches(Tile other)
+	{	
 		RankTile otherObject = (RankTile) other;
 
 		return rank == otherObject.rank && super.matches(otherObject);

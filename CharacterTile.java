@@ -74,7 +74,7 @@ public class CharacterTile extends Tile
 		
 	}
 	
-	public boolean matches(Object other)
+	public boolean matches(Tile other)
 	{
 		CharacterTile otherObject = (CharacterTile) other;
  

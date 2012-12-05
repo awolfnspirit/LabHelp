@@ -46,7 +46,6 @@ public class Tile extends JPanel
 	
 	public boolean matches(Tile other)
 	{
-		System.out.println("Entered matches in Tile.");
 		return getClass() == other.getClass();
 	}
 	

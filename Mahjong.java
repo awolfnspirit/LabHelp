@@ -129,35 +129,61 @@ public class Mahjong extends JFrame
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu fileMenu = new JMenu("File");
-		JMenu options = new JMenu("Options");
+		JMenu fileMenu = new JMenu("Game");
+		JMenu options = new JMenu("Move");
+		
+		JMenuItem newGame = new JMenuItem("Play");
+		newGame.setToolTipText("Start a new game.");
+		newGame.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to start a new game?", "Start a new game?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(selection == JOptionPane.YES_OPTION)
+					new Mahjong();
+				else
+					return;
+			}
+		});
+		fileMenu.add(newGame);
 		
 		JMenuItem restart = new JMenuItem("Restart");
+		restart.setToolTipText("Restart the current game.");
 		restart.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				new Mahjong(gameNumber);
+				int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to restart the game?", "Restarting the game!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(selection == JOptionPane.YES_OPTION)
+					new Mahjong(gameNumber);
+				else
+					return;
 			}
 		});
 		fileMenu.add(restart);
 		
-		JMenuItem newGame = new JMenuItem("New Game");
-		newGame.addActionListener(new ActionListener()
+		JMenuItem numbered = new JMenuItem("Numbered");
+		numbered.setToolTipText("Play a numbered (and therefore a repeatable game).");
+		numbered.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
 			{
 				new Mahjong();
 			}
 		});
-		fileMenu.add(newGame);
+		fileMenu.add(numbered);
 		
 		JMenuItem exit = new JMenuItem("Exit");
+		exit.setToolTipText("Exit the game.");
 		exit.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				System.exit(0);
+				int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the game?", "Exiting the game!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(selection == JOptionPane.YES_OPTION)
+					System.exit(0);
+				else
+					return;
 			}
 		});
 		fileMenu.add(exit);
@@ -166,6 +192,7 @@ public class Mahjong extends JFrame
 		
 		//---Options Menu
 		JMenuItem undo = new JMenuItem("Undo");
+		undo.setToolTipText("Undo your last move.");
 		undo.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
@@ -196,6 +223,7 @@ public class Mahjong extends JFrame
 
 	public class MahjongBoard extends JPanel implements MouseListener
 	{
+		private PlayClip clip = new PlayClip("audio/stone-scraping.wav", true);
 	
 		public MahjongBoard()
 		{
@@ -620,18 +648,16 @@ public class Mahjong extends JFrame
 						tileToRight = true;
 				}
 				
-				if(tileOnTop == false)
-				{
-					if(tileToLeft == false || tileToRight == false)
+				if(tileOnTop == false && (tileToLeft == false || tileToRight == false))
 					{
 						if(tile.getForeground() == Color.black)
 						{
 							tile.setForeground(Color.RED);
 							
-							if(selected != null)
-								againstSelected = tile;
-							else
+							if(selected == null)
 								selected = tile;
+							else
+								againstSelected = tile;
 							
 						}
 						else
@@ -642,7 +668,6 @@ public class Mahjong extends JFrame
 						}
 					}
 				}
-			}
 			
 			if(selected != null && againstSelected != null)
 			{
@@ -661,23 +686,31 @@ public class Mahjong extends JFrame
 		{
 			if(forUndo1 != null && forUndo2 != null)
 			{
-				forUndo1.setForeground(Color.black);
-				add(forUndo1, forUndo1.zPos);
-				repaint();
-				revalidate();
-				
-				forUndo2.setForeground(Color.black);
-				add(forUndo2, forUndo2.zPos);
-				repaint();
-				revalidate();
-				
-				scrollPanel.remove(forUndo1);
-				scrollPanel.repaint();
-				scrollPanel.remove(forUndo2);
-				scrollPanel.repaint();
-				
-				forUndo1 = null;
-				forUndo2 = null;
+				int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to undo?", "Undo?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(selection == JOptionPane.YES_OPTION)
+				{
+					forUndo1.addMouseListener(this);
+					add(forUndo1, forUndo1.zPos);
+					forUndo1.setForeground(Color.black);
+					repaint();
+	
+					forUndo2.addMouseListener(this);
+					add(forUndo2, forUndo2.zPos);
+					forUndo2.setForeground(Color.black);
+					repaint();
+					
+					scrollPanel.remove(selected);
+					scrollPanel.repaint();
+					scrollPane.repaint();
+					
+					forUndo1 = null;
+					forUndo2 = null;
+					
+					revalidate();
+					board.revalidate();
+				}
+				else
+					return;
 			}
 			else
 			{
@@ -697,14 +730,16 @@ public class Mahjong extends JFrame
 		
 		public void compare()
 		{
-			
-			
-			if(selected.matches(againstSelected))
+			if(selected.getClass().equals(againstSelected.getClass()) && selected.matches(againstSelected))
 			{
-				toTheScroll(selected);
-				selected.setForeground(Color.black);
 				forUndo1 = selected;
 				forUndo2 = againstSelected;
+				
+				toTheScroll(selected);
+				selected.setForeground(Color.black);
+				againstSelected.setForeground(Color.black);
+				
+				clip.play();
 				
 				remove(selected);
 				//selected.zPos = 500;
